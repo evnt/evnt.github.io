@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+	<title>EVNT</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<script src="https://satori-a.akamaihd.net/satori-rtm-sdk/v1.1.1/sdk.min.js"></script>
+	<script src="https://satori-a.akamaihd.net/satori-rtm-sdk/v1.1.1/sdk.js"></script>
+	<script src="../JS/satorichat.js"></script>
+	<link rel="shortcut icon" href="../pictures/favicon.ico" type="image/x-icon">
+	<style>
+		html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+		.mytext{
+				border:0;padding:10px;background:whitesmoke;
+		}
+		.text{
+				width:75%;display:flex;flex-direction:column;
+		}
+		.text > p:first-of-type{
+				width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;
+		}
+		.text > p:last-of-type{
+				width:100%;text-align:right;color:silver;margin-bottom:-7px;margin-top:auto;
+		}
+		.text-l{
+				float:left;padding-right:10px;
+		}
+		.text-r{
+				float:right;padding-left:10px;
+		}
+		.avatar{
+				display:flex;
+				justify-content:center;
+				align-items:center;
+				width:25%;
+				float:left;
+				padding-right:10px;
+		}
+		.macro{
+				margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;
+		}
+		.msj-rta{
+				float:right;background:whitesmoke;
+		}
+		.msj{
+				float:left;background:white;
+		}
+		.frame{
+				background:#e0e0de;
+				height:450px;
+				overflow:hidden;
+				padding:0;
+		}
+		.frame > div:last-of-type{
+				position:absolute;bottom:5px;width:100%;display:flex;
+		}
+		ul {
+				width:100%;
+				list-style-type: none;
+				padding:18px;
+				position:absolute;
+				bottom:32px;
+				display:flex;
+				flex-direction: column;
+
+		}
+		.msj:before{
+				width: 0;
+				height: 0;
+				content:"";
+				top:-5px;
+				left:-14px;
+				position:relative;
+				border-style: solid;
+				border-width: 0 13px 13px 0;
+				border-color: transparent transparent transparent transparent;
+				background-color: #ff6600;
+		}
+		.msj-rta:after{
+				width: 0;
+				height: 0;
+				content:"";
+				top:-5px;
+				left:14px;
+				position:relative;
+				border-style: solid;
+				border-width: 13px 13px 0 0;
+				border-color: transparent transparent transparent transparent;
+				background-color: #ff6600;
+		}
+		input:focus{
+				outline: none;
+		}
+		::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+				color: #000000;
+		}
+		::-moz-placeholder { /* Firefox 19+ */
+				color: #000000;
+		}
+		:-ms-input-placeholder { /* IE 10+ */
+				color: #000000;
+		}
+		:-moz-placeholder { /* Firefox 18- */
+				color: #000000;
+		}
+
+		body {
+				background-color: #3399cc;
+				overflow:hidden;
+		}
+		.frame {
+				border-radius: 20px;
+		}
+		.container {
+			top:0%;
+			left:0%;
+			overflow:hidden;
+			height:100%;
+			transform:translate(-10%,-13.5%);
+		}
+	</style>
+
+	<body class="body" scroll:"no">
+
+	<!-- Top container -->
+	<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+		<button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+		<span class="w3-bar-item w3-right">Logo</span>
+	</div>
+
+	<!-- Sidebar/menu -->
+	<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+	<div class="w3-container w3-row">
+		<div class="w3-col s4">
+		<img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
+		</div>
+		<div class="w3-col s8 w3-bar">
+		<span>Welcome, <strong>Mike</strong></span><br>
+		<a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+		<a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+		<a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+		</div>
+	</div>
+	<hr>
+	<div class="w3-container">
+		<h5>Dashboard</h5>
+	</div>
+	<div class="w3-bar-block">
+		<a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding" style="background-color:#3399cc"><i class="fa fa-bell fa-fw"></i>Overview</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>Meetup API</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope"></i>Messages</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>Export to Google Docs</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>Export to Slack Group</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>Export to EventBrite</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i>Find Event Hostees</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>Settings</a><br><br>
+	</div>
+	</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+</div>
+
+  <footer class="w3-container w3-padding-16 w3-light-grey">
+    <h4>FOOTER</h4>
+    <p>Powered by Satori</p>
+  </footer>
+
+  <!-- End page content -->
+	<div class="container" style="padding-top: 10%;padding-bottom: 10%;" scroll="no">
+			<div class="col-sm-3 col-sm-offset-4 frame">
+			<ul></ul>
+			<div>
+					<div class="msj-rta macro" style="margin:auto">
+							<div class="text text-r" style="background:whitesmoke !important">
+									<input class="mytext" placeholder="Type a message"/>
+							</div>
+					</div>
+			</div>
+	</div>
+	</div>
+</div>
+
+
+<script>
+//
+var myGoogle = getFirebaseAccountImage(me=true);
+var yourGoogle = getFirebaseAccountImage(me=false);
+if (myGoogle == false) {
+		myGoogle.avatar = "https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiqo-X9oJnWAhVB4GMKHRoeBFMQjRwIBw&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AProfile_avatar_placeholder_large.png&psig=AFQjCNEkMHo_8XLiy9_J6lRb9mj7L88ZDA&ust=1505086153355709";
+} else if (yourGoogle == false) {
+		yourGoogle.avatar = "https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiqo-X9oJnWAhVB4GMKHRoeBFMQjRwIBw&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AProfile_avatar_placeholder_large.png&psig=AFQjCNEkMHo_8XLiy9_J6lRb9mj7L88ZDA&ust=1505086153355709";
+}
+
+var me = {};
+me.avatar = myGoogle;
+
+var you = {};
+you.avatar = yourGoogle;
+
+function formatAMPM(date) {
+		var hours = date.getHours();
+		var minutes = date.getMinutes();
+		var ampm = hours >= 12 ? 'PM' : 'AM';
+		hours = hours % 12;
+		hours = hours ? hours : 12; // the hour '0' should be '12'
+		minutes = minutes < 10 ? '0'+minutes : minutes;
+		var strTime = hours + ':' + minutes + ' ' + ampm;
+		return strTime;
+}
+
+// to fetch firebase account image, parameter me is for fetching current user pic, if set to false, your profile pic
+function getFirebaseAccountImage(me=true){
+		return false
+}
+
+//-- Don't use time. It is a javaScript effect.
+function insertChat(who, text, time = 0){
+		var control = "";
+		var date = formatAMPM(new Date());
+
+		if (who == "me"){
+
+				control = '<li style="width:100%">' +
+						'<div class="msj macro">' +
+						'<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
+						'<div class="text text-l">' +
+						'<p>'+ text +'</p>' +
+						'<p><small>'+date+'</small></p>' +
+						'</div>' +
+						'</div>' +
+						'</li>';
+		}else{
+				control = '<li style="width:100%;">' +
+						'<div class="msj-rta macro">' +
+						'<div class="text text-r">' +
+						'<p>'+text+'</p>' +
+						'<p><small>'+date+'</small></p>' +
+						'</div>' +
+						'<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div>' +
+						'</li>';
+		}
+		setTimeout(
+				function(){
+						$("ul").append(control);
+
+				}, time);
+
+}
+
+function resetChat(){
+		$("ul").empty();
+}
+
+$(".mytext").on("keyup", function(e){
+		if (e.which == 13){
+				var text = $(this).val();
+				if (text !== ""){
+						onMessageSend('your-channel', text);
+//                insertChat("me", text);
+						$(this).val('');
+				}
+		}
+});
+
+//-- Clear Chat
+resetChat();
+
+
+//-- NOTE: No use time on insertChat.
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+
+</body>
+</html>
