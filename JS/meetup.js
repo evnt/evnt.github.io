@@ -12,6 +12,7 @@ function subscribeToMeetUp() {
     channel.on('rtm/subscription/data', function (pdu) {
         pdu.body.messages.forEach(function (msg) {
             console.log('Got message:', msg);
+            document.getElementById("container-suggestions").innerHTML="It's going to be sunny outside! Pack a bottle of water!";
         });
     });
 
