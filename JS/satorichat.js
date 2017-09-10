@@ -1,13 +1,14 @@
-var rtm = new RTM("wss://diotspkh.api.satori.com", "aCcbDD1A473917d767d84aB9bfa0fFe1");
+var rtm = new RTM("wss://xvlhsogc.api.satori.com", "DE2aC81E2A9a630Cc9e6ebFC3fDeB896");
 
 // create a new subscription with "your-channel" name
 var channel = rtm.subscribe("your-channel", RTM.SubscriptionMode.SIMPLE);
-var channelName = channel.get('name');
 // add channel data handlers
 
 // channel receives any published message
 channel.on("rtm/subscription/data", function(pdu) {
-    pdu.body.messages.forEach(console.log);
+    pdu.body.messages.forEach(function (t) {
+        console.log("Message:" + t);
+    });
 });
 
 // client enters 'connected' state
@@ -26,12 +27,12 @@ rtm.on("data", function(pdu) {
 rtm.start();
 
 
-function onMessageSend(data) {
-    const message = {text: data};
-    this._send((channelName) => updateMessage(channelName, message, user, data), 'bot_message');
+function onMessageSend(channel, data) {
+    this._send(channel, data);
+    console.log(data)
 }
 
 
-function _send(message) {
-    rtm.publish('channel', message);
+function _send(channel, message) {
+    rtm.publish(channel, message);
 }

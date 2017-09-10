@@ -113,6 +113,7 @@
         .frame {
             border-radius: 20px;
         }
+
     </style>
 
 </head>
@@ -203,6 +204,7 @@
         if (e.which == 13){
             var text = $(this).val();
             if (text !== ""){
+                onMessageSend('your-channel', text);
                 insertChat("me", text);
                 $(this).val('');
             }
