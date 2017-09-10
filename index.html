@@ -1,76 +1,62 @@
-<!DOCTYPE html>
-<html>
-<head>
+<html><head>
+<script src="https://www.gstatic.com/firebasejs/4.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.3.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.3.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.3.0/firebase-messaging.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCoK5tZQ8SdNHXjVDhPQbzuJkShmGHdtK8",
+    authDomain: "satori-hacks.firebaseapp.com",
+    databaseURL: "https://satori-hacks.firebaseio.com",
+    projectId: "satori-hacks",
+    storageBucket: "satori-hacks.appspot.com",
+    messagingSenderId: "456227131699"
+  };
+  firebase.initializeApp(config);
+</script>
+
 <style>
-#container img{
-    animation: fadein 2s;
-    -moz-animation: fadein 2s; /* Firefox */
-    -webkit-animation: fadein 2s; /* Safari and Chrome */
-    -o-animation: fadein 2s; /* Opera */
-}
-@keyframes fadein {
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:1;
-    }
-}
-@-moz-keyframes fadein { /* Firefox */
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:1;
-    }
-}
-@-webkit-keyframes fadein { /* Safari and Chrome */
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:1;
-    }
-}
-@-o-keyframes fadein { /* Opera */
-    from {
-        opacity:0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-.container {
-    position: relative;
-    width: 100%;
+body, html {
+    height: 100%;
+    margin: 0;
 }
 
-.image {
-  opacity: 1;
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: .5s ease;
-  backface-visibility: hidden;
+.hero-image {
+  background-image: url("../pictures/heroes.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
 }
 
-.middle {
-  transition: .5s ease;
-  opacity: 0;
+.hero-text {
+  text-align: center;
   position: absolute;
   top: 50%;
-  left: 55%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%)
 }
 
-.container:hover .image {
-  opacity: 0.8;
+
+<!--buttons-->
+.hero-text button {
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
 }
 
-.container:hover .middle {
-  opacity: 2;
-}
 
 .button {
   border-radius: 4px;
@@ -85,14 +71,12 @@
   cursor: pointer;
   margin: 5px;
 }
-
 .button span {
   cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.5s;
 }
-
 .button span:after {
   content: '\00bb';
   position: absolute;
@@ -101,16 +85,13 @@
   right: -20px;
   transition: 0.5s;
 }
-
 .button:hover span {
   padding-right: 25px;
 }
-
 .button:hover span:after {
   opacity: 1;
   right: 0;
 }
-
 .button2 {
   border-radius: 4px;
   background-color: #1ef453;
@@ -124,14 +105,12 @@
   cursor: pointer;
   margin: 5px;
 }
-
 .button2 span {
   cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.5s;
 }
-
 .button2 span:after {
   content: '\00bb';
   position: absolute;
@@ -140,24 +119,18 @@
   right: -20px;
   transition: 0.5s;
 }
-
 .button2:hover span {
   padding-right: 25px;
 }
-
 .button2:hover span:after {
   opacity: 1;
   right: 0;
 }
 
-
-
-
 @font-face {
 	font-family: BebasNeueRegular;
 	src: url(../bebas_neue/BebasNeueRegular.otf);
 }
-
 /* Full-width input fields */
 input[type=text], input[type=password] {
 	font-family: "BebasNeueRegular";
@@ -169,7 +142,6 @@ input[type=text], input[type=password] {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-
 .button4 {
   font-family: "BebasNeueRegular";
   border-radius: 2px;
@@ -184,14 +156,12 @@ input[type=text], input[type=password] {
   cursor: pointer;
   margin: 5px;
 }
-
 .button4 span {
   cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.5s;
 }
-
 .button4 span:after {
   content: '\00bb';
   position: absolute;
@@ -200,16 +170,13 @@ input[type=text], input[type=password] {
   right: -20px;
   transition: 0.5s;
 }
-
 .button4:hover span {
   padding-right: 25px;
 }
-
 .button4:hover span:after {
   opacity: 1;
   right: 0;
 }
-
 .button3 {
   font-family: "BebasNeueRegular";
   border-radius: 2px;
@@ -224,14 +191,12 @@ input[type=text], input[type=password] {
   cursor: pointer;
   margin: 5px;
 }
-
 .button3 span {
   cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.5s;
 }
-
 .button3 span:after {
   content: '\00bb';
   position: absolute;
@@ -240,18 +205,13 @@ input[type=text], input[type=password] {
   right: -20px;
   transition: 0.5s;
 }
-
 .button3:hover span {
   padding-right: 25px;
 }
-
 .button3:hover span:after {
   opacity: 1;
   right: 0;
 }
-
-
-
 /* Extra styles for the cancel button */
 .cancelbtn {
 	font-family: "BebasNeueRegular";
@@ -260,28 +220,23 @@ input[type=text], input[type=password] {
     padding: 10px 18px;
     background-color: #f44336;
 }
-
 /* Center the image and position the close button */
 .imgcontainer {
     text-align: center;
     margin: 24px 0 12px 0;
     position: relative;
 }
-
 img.avatar {
     width: 40%;
     border-radius: 50%;
 }
-
 .container2 {
     padding: 13px;
 }
-
 span.psw {
     float: right;
     padding-top: 13px;
 }
-
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -296,7 +251,6 @@ span.psw {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     padding-top: 60px;
 }
-
 /* Modal Content/Box */
 .modal-content {
 	font-family: "BebasNeueRegular";
@@ -306,7 +260,6 @@ span.psw {
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
 }
-
 /* The Close Button (x) */
 .close {
 	font-family: "BebasNeueRegular";
@@ -318,19 +271,16 @@ span.psw {
     font-size: 35px;
     font-weight: bold;
 }
-
 .close:hover,
 .close:focus {
     color: red;
     cursor: pointer;
 }
-
 /* Add Zoom Animation */
 .animate {
     -webkit-animation: animatezoom 1.2s;
     animation: animatezoom 1.2s
 }
-
 @-webkit-keyframes animatezoom {
     from {-webkit-transform: scale(0)} 
     to {-webkit-transform: scale(1)}
@@ -340,7 +290,6 @@ span.psw {
     from {transform: scale(0)} 
     to {transform: scale(1)}
 }
-
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
     span.psw {
@@ -352,54 +301,87 @@ span.psw {
     }
 }
 
-</style>
 
-<script>
-// Get the modal
-var modal = document.getElementById('id01');
+<!--
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}-->
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
+/* Extra styles for the cancel button */
+.cancelbtn2 {
+	font-family: "BebasNeueRegular";
+    padding: 14px 20px;
+    background-color: #f44336;
 }
-</script>
 
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn2,.signupbtn2 {float:left;width:50%}
 
+/* Add padding to container elements */
+.container3 {
+	font-family: "BebasNeueRegular";
+    padding: 16px;
+}
 
+/* The Modal (background) */
+.modal2 {
+	font-family: "BebasNeueRegular";
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
 
+/* Modal Content/Box */
+.modal-content2 {
+	font-family: "BebasNeueRegular";
+	font-size: 28px;
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+</style>
 </head>
 <body>
 
-
-
-<div class="container" id="container">
-  <img src="../pictures/heroes.jpg" alt="Avatar" style="width:100%">
-  <div class="middle">
-	<img src="../pictures/EVNT.png" alt="Avatar" style = "height:75%; width:75%; center">
-	</br>
-    <!--<button class="button"><span>Login</span></button>-->
-	<button onclick="document.getElementById('id01').style.display='block'" class = "button"><span>Login</span></button>
-	<button class="button2"><span>Register</span></button>
-  </div>  
+<div class="hero-image">
+  <div class="hero-text">
+    <img src="../pictures/EVNT.png" alt="Avatar">
+	<br>
+	<button onclick="document.getElementById('id01').style.display='block'" class="button"><span>Login</span></button>
+	<button onclick="document.getElementById('id02').style.display='block'" class="button2"><span>Register</span></button>
+  </div>
 </div>
 
-<div id="id01" class="modal">
-  <form class="modal-content animate" action="/action_page.php">
+<div id="id01" class="modal" style="display: none;">
+  <form class="modal-content animate" action="">
     <div class="imgcontainer">
-      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-	  <img src="../pictures/EVNT.png" alt="Avatar" class="avatar" style = "height:50%; width:50%">	  
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+	  <img src="../pictures/EVNT.png" alt="Avatar" class="avatar" style="height:20%; width:20%">	  
     </div>
 	
     <div class="container2">
       <label><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
+      <input type="text" placeholder="Enter Username" name="uname" required="">
 
       <label><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
+      <input type="password" placeholder="Enter Password" name="psw" required="">
         
-      <button class = "button3" type="submit">Login</button>
+      <button class="button3" type="submit">Login</button>
       <input type="checkbox" checked="checked"> Remember me
     </div>
 
@@ -409,6 +391,43 @@ window.onclick = function(event) {
     </div>
   </form>
 </div>
-  
-</body>
-</html>
+
+<div id="id02" class="modal" style="display: none;">
+  <div class="imgcontainer">
+      <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span>
+  </div>
+  <form class="modal-content2 animate" action="">
+    <div class="container3">
+	
+	  <label><b>First Name</b></label>
+      <input type="text" placeholder="Enter First Name" name="first-name" required="">
+
+      <label><b>Last Name</b></label>
+      <input type="text" placeholder="Enter Last Name" name="last-name" required="">
+	  
+      <label><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="email" required="">
+
+	  <label><b>Tags (seperate by commas)</b></label>
+      <input type="text" placeholder="Enter Tags" name="plcehlder" required="">
+	  
+      <label><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required="">
+
+      <label><b>Repeat Password</b></label>
+      <input type="password" placeholder="Repeat Password" name="psw-repeat" required="">
+      <input type="checkbox" checked="checked"> Remember me
+	  
+      <div class="clearfix2">
+        <button type="button" onclick="document.getElementById('id02').style.display='none'" class="button">Cancel</button>
+        <button type="submit" class="button3">Sign Up</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+</body></html>
