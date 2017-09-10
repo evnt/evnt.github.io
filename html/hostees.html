@@ -9,10 +9,10 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+  <script src="http://maps.google.com/maps/api/js"></script>
+  <script src="../JS/gmaps.js"></script>
 	<script src="https://satori-a.akamaihd.net/satori-rtm-sdk/v1.1.1/sdk.min.js"></script>
 	<script src="https://satori-a.akamaihd.net/satori-rtm-sdk/v1.1.1/sdk.js"></script>
-	<script src="../JS/satorichat.js"></script>
 	<link rel="shortcut icon" href="../pictures/favicon.ico" type="image/x-icon">
 	<style>
 		html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
@@ -125,8 +125,9 @@
 			transform:translate(-10%,-13.5%);
 		}
     #map {
-    height: 100%;
-    transform:translate(-50%,-50%);
+    width: 1020px;
+    height: 488px;
+    transform:translateX(25%);
   }
 	</style>
 
@@ -135,7 +136,8 @@
 	<!-- Top container -->
 	<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
 		<button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-		<span class="w3-bar-item w3-right">Logo</span>
+		<span class="w3-bar-item w3-right"><img src="../pictures/EVNTcircFAVICON.png"></span>
+    <span class="w3-bar-item w3-left">E V N T</span>
 	</div>
 
 	<!-- Sidebar/menu -->
@@ -153,16 +155,16 @@
 	</div>
 	<hr>
 	<div class="w3-container">
-		<h5>Dashboard</h5>
+		<h5>E V N T Dashboard</h5>
 	</div>
 	<div class="w3-bar-block">
 		<a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-		<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>Overview</a>
-		<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>Meetup API</a>
+		<a href="overview.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>Overview</a>
+		<a href="dashboard.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>Messages</a>
 		<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>Export to Google Docs</a>
 		<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>Export to Slack Group</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>Export to EventBrite</a>
-		<a href="#" class="w3-bar-item w3-button w3-padding" style="background-color:#3399cc"><i class="fa fa-bullseye fa-fw"></i>Find Event Hostees</a>
+		<a href="hostees.html" class="w3-bar-item w3-button w3-padding" style="background-color:#3399cc"><i class="fa fa-bullseye fa-fw"></i>Find Events and Hostees</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>Settings</a><br><br>
 	</div>
 	</nav>
@@ -178,8 +180,8 @@
   </footer>
 
   <!-- End page content -->
+  <div id="map"></div>
 
-<div id="googleMap" style="width:100%;height:400px;"></div>
 <script>
 //
 var myGoogle = getFirebaseAccountImage(me=true);
@@ -236,14 +238,34 @@ function w3_close() {
     mySidebar.style.display = "none";
     overlayBg.style.display = "none";
 }
-function myMap() {
-var mapProp= {
-    center:new google.maps.LatLng(37.773624, -122.41588),
-    zoom:19,
-};
-var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-}
+var rtm = new RTM("wss://open-data.api.satori.com", "8dd521d312CF33EB9fA9ddC94e4616A5");
+var channel = rtm.subscribe('meetup', RTM.SubscriptionMode.SIMPLE, {
+  filter: 'SELECT rsvp.group.group_lon AS "Longitude" , rsvp.group.group_lat AS "Latitude" , rsvp.venue.venue_name AS "VenueName" , rsvp.event.eventName AS "EventName"  FROM `meetup` WHERE rsvp.group.group_city="San Francisco" OR rsvp.group.group_city="Los Angeles" OR rsvp.group.group_city="Seattle"'
+});
+console.log("hello");
+debugger;
+channel.on('rtm/subscription/data', function(pdu) {
+  pdu.body.messages.forEach(function(msg) {
+    console.log("test",msg);
+    map.addMarker({
+      lat: msg.Latitude,
+      lng: msg.Longitude,
+      title: msg.VenueName,
+      details: msg.EventName,
+      click: function(e) {
+        alert('A super duper cool event in San Francisco, California!');
+      }
+    });
+  });
+});
+var map = new GMaps({
+      el: '#map',
+      lat: 37.774929,
+      lng: -122.419416
+    });
+rtm.start();
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBc60BGmmZHY5LU2SKdn76W7c8OaO8_Avo&callback=myMap"></script>
+<script src="https://satori-a.akamaihd.net/satori-rtm-sdk/v1.1.0/sdk.min.js"></script>
+<script src="https://satori-a.akamaihd.net/satori-rtm-sdk/v1.1.0/sdk.js"></script>
 </body>
 </html>
