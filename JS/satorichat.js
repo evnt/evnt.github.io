@@ -8,6 +8,7 @@ var channel = rtm.subscribe("your-channel", RTM.SubscriptionMode.SIMPLE);
 channel.on("rtm/subscription/data", function(pdu) {
     pdu.body.messages.forEach(function (t) {
         console.log("Message:" + t);
+        insertChat('your-channel', t)
     });
 });
 
@@ -36,3 +37,5 @@ function onMessageSend(channel, data) {
 function _send(channel, message) {
     rtm.publish(channel, message);
 }
+
+
