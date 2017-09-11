@@ -125,9 +125,9 @@
 			transform:translate(-10%,-13.5%);
 		}
     #map {
-    width: 1020px;
-    height: 488px;
-    transform:translateX(25%);
+    width: 1600px;
+    height: 632px;
+    transform:translateX(12.5%);
   }
 	</style>
 
@@ -240,7 +240,7 @@ function w3_close() {
 }
 var rtm = new RTM("wss://open-data.api.satori.com", "8dd521d312CF33EB9fA9ddC94e4616A5");
 var channel = rtm.subscribe('meetup', RTM.SubscriptionMode.SIMPLE, {
-  filter: 'SELECT rsvp.group.group_lon AS "Longitude" , rsvp.group.group_lat AS "Latitude" , rsvp.venue.venue_name AS "VenueName" , rsvp.event.eventName AS "EventName"  FROM `meetup` WHERE rsvp.group.group_city="San Francisco" OR rsvp.group.group_city="Los Angeles" OR rsvp.group.group_city="Seattle"'
+  filter: 'SELECT rsvp.group.group_lon AS "Longitude" , rsvp.group.group_lat AS "Latitude" , rsvp.venue.venue_name AS "VenueName" , rsvp.event.eventName AS "EventName"  FROM `meetup`'
 });
 console.log("hello");
 debugger;
@@ -254,7 +254,7 @@ channel.on('rtm/subscription/data', function(pdu) {
       details: msg.EventName,
       click: function(e) {
         console.log("clicked",msg);
-        alert("A super duper cool event taking place in "+msg.rsvp.group.group_city);
+        alert('A super duper cool event taking place in this super cool city!');
       }
     });
   });
